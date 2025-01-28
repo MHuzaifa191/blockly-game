@@ -1,0 +1,116 @@
+body {
+    font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+    margin: 0;
+    padding: 0;
+    background-image: url('../assets/background.jpg'); /* Replace with your image path */
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the background image */
+    height: 100vh; /* Full height */
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-image: url('../assets/header.jpg'); /* Replace with your header image path */
+    background-size: cover; /* Cover the entire header */
+    background-position: center; /* Center the header image */
+    color: rgb(0, 0, 0);
+    margin-bottom: 10px;
+    padding: 1rem;
+    text-align: center;
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);  */
+    position: relative; /* Position relative for layering */
+    z-index: 1; /* Ensure header is above the background */
+    box-shadow: -4px 2px 20px 8px rgb(0 0 0 / 48%);
+}
+
+#blocklyDiv, #twoContainer {
+    background-color: white; /* Set background to white */
+    border-radius: 8px; /* Optional: Add rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
+    padding: 10px; /* Optional: Add some padding */
+    box-shadow: 0 4px 50px rgb(0, 0, 0);
+}
+
+.Heading {
+    font-family: 'Dancing Script', cursive; /* Apply Dancing Script font */
+    font-size: 5rem;
+    margin: 0;
+    padding: 1rem;
+    color: rgb(2, 154, 255);
+    /* text-shadow: 5px 2px 10px rgb(0, 0, 0); */
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    gap: 1rem;
+}
+
+#blocklyDiv {
+    flex: 1;
+    height: 100%;
+    min-width: 400px;
+}
+
+#twoContainer {
+    flex: 1;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    min-width: 400px;
+    height: 100%;
+}
+
+.controls {
+    margin-top: 50px;
+    padding: 1rem;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+.overlay {
+    position: absolute; /* Position absolute to cover the entire body */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.575); /* White film with 20% opacity */
+    z-index: 0; /* Ensure it is below the header and above the background */
+ }
+
+button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.styled-button {
+    background-color: #4c8baf; /* Green background */
+    color: white; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 15px 30px; /* Increase padding for larger buttons */
+    font-size: 18px; /* Increase font size */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effects */
+    margin: 0 10px; /* Add some space between buttons */
+}
+
+.styled-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.10); /* Slightly enlarge the button on hover */
+}
+
+.styled-button:active {
+    transform: scale(0.95); /* Slightly shrink the button when clicked */
+}

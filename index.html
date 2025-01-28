@@ -18,68 +18,20 @@
     <script src="blocks.js" defer></script>
     <script src="main.js" defer></script>
     <script src="game.js" defer></script>    
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/styles.css">
     
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
 
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .container {
-            display: flex;
-            flex: 1;
-            padding: 1rem;
-            gap: 1rem;
-        }
-
-        #blocklyDiv {
-            flex: 1;
-            height: 100%;
-            min-width: 400px;
-        }
-
-        #twoContainer {
-            flex: 1;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            min-width: 400px;
-            height: 100%;
-        }
-
-        .controls {
-            padding: 1rem;
-            background-color: #f0f0f0;
-            text-align: center;
-        }
-
-        button {
-            padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
     <header>
-        <h1>Code & Play</h1>
+        <h1 class="Heading">Code & Play</h1>
         <p>Learn programming concepts through fun visual blocks!</p>
     </header>
 
@@ -92,8 +44,8 @@
     </div>
 
     <div class="controls">
-        <button onclick="runCode()">Run Code</button>
-        <button onclick="resetGame()">Reset Game</button>
+        <button class="styled-button" onclick="runCode()">Run Code</button>
+        <button class="styled-button" onclick="resetGame()">Reset Game</button>
     </div>
 
     <!-- Blockly Toolbox Definition -->
