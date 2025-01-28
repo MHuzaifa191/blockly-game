@@ -128,7 +128,7 @@ class Game {
         }
     }
 
-    async moveForward(distance) {
+    async move_forward(distance) {
         if (this.isAnimating) return;
         this.isAnimating = true;
     
@@ -178,7 +178,7 @@ class Game {
         });
     }
 
-    async moveBackward(distance) {
+    async move_backward(distance) {
         if (this.isAnimating) return;
         this.isAnimating = true;
     
@@ -228,7 +228,7 @@ class Game {
         });
     }
 
-    async moveUpward(distance) {
+    async move_upward(distance) {
         if (this.isAnimating) return;
         this.isAnimating = true;
     
@@ -277,7 +277,7 @@ class Game {
         });
     }
     
-    async moveDownward(distance) {
+    async move_downward(distance) {
         if (this.isAnimating) return;
         this.isAnimating = true;
     
@@ -309,7 +309,7 @@ class Game {
                 this.circle.position.x = startX + (targetX - startX) * progress;
                 this.circle.position.y = startY + (targetY - startY) * progress;
     
-                console.log(`Current position: (${this.circle.position.x}, ${this.circle.position.y})`);
+                // console.log(`Current position: (${this.circle.position.x}, ${this.circle.position.y})`);
     
                 // Render the updated position
                 this.two.update();
@@ -385,6 +385,19 @@ class Game {
             // Check for collision with obstacles
             if (this.checkCollision(futureCircle, this.obstacles)) {
                 console.log('Collision detected! Stopping movement.');
+                if (direction === 'forward') {
+                    await this.move_backward(stepDistance); // Move backward slightly to avoid overlapping obstacles
+                }
+                else if (direction === 'backward') {
+                    await this.move_forward(stepDistance); // Move forward slightly to avoid overlapping obstacles
+                }
+                else if (direction === 'upward') {
+                    await this.move_downward(stepDistance); // Move downward slightly to avoid overlapping obstacles
+                }
+                else if (direction === 'downward') {
+                    await this.move_upward(stepDistance); // Move upward slightly to avoid overlapping obstacles
+                }
+
                 break; // Exit the loop if a collision is detected
             }
     
