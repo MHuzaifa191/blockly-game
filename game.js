@@ -1,19 +1,9 @@
 class Game {
-    constructor() {
-        // Initialize Two.js
-        this.two = new Two({
-            type: Two.Types.canvas,
-            container: document.getElementById('gameContainer'),
-            autostart: true
-        });
-
-        // Set up game properties
-        this.character = null;
-        this.isAnimating = false;
-        this.currentAngle = 0;
-        
-        // Initialize the game
-        this.init();
+    constructor(circle, two) {
+        this.circle = circle; // Use the existing circle passed in
+        this.currentAngle = 0; // Angle in degrees
+        this.isAnimating = false; // Animation state
+        this.two = two;
     }
 
     init() {
@@ -60,22 +50,30 @@ class Game {
         this.isAnimating = true;
 
         const angle = this.currentAngle * (Math.PI / 180);
-        const targetX = this.character.position.x + Math.cos(angle) * distance;
-        const targetY = this.character.position.y + Math.sin(angle) * distance;
+        const targetX = this.circle.position.x + Math.cos(angle) * distance;
+        const targetY = this.circle.position.y + Math.sin(angle) * distance;
+
+        console.log(`Moving from (${this.circle.position.x}, ${this.circle.position.y}) to (${targetX}, ${targetY})`);
 
         // Animate movement
         return new Promise((resolve) => {
             const duration = 1000; // 1 second
-            const startX = this.character.position.x;
-            const startY = this.character.position.y;
+            const startX = this.circle.position.x;
+            const startY = this.circle.position.y;
             const startTime = Date.now();
 
             const animate = () => {
                 const elapsed = Date.now() - startTime;
                 const progress = Math.min(elapsed / duration, 1);
 
-                this.character.position.x = startX + (targetX - startX) * progress;
-                this.character.position.y = startY + (targetY - startY) * progress;
+                // Update circle position
+                this.circle.position.x = startX + (targetX - startX) * progress;
+                this.circle.position.y = startY + (targetY - startY) * progress;
+
+                console.log(`Current position: (${this.circle.position.x}, ${this.circle.position.y})`);
+
+                // Render the updated position
+                two.update();
 
                 if (progress < 1) {
                     requestAnimationFrame(animate);
@@ -148,5 +146,17 @@ class Game {
                 console.warn('Unknown action:', action);
                 return null;
         }
+    }
+
+    // Test method to verify movement
+    testMovement() {
+        console.log('Starting movement test');
+        console.log('Initial position:', this.character.position);
+        
+        // Directly modify position to test rendering
+        this.character.position.x += 50;
+        
+        console.log('After direct modification:', this.character.position);
+        this.two.update(); // Force Two.js to render
     }
 } 

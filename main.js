@@ -2,6 +2,10 @@
 // Declare workspace and game as global variables
 let workspace;
 let game;
+let two;
+let circle;
+
+
 
 // Function to run the code
 function runCode() {
@@ -97,6 +101,23 @@ function runCode() {
 
 // Wait for the DOM to fully load
 window.addEventListener('DOMContentLoaded', (event) => {
+
+    // Initialize Two.js
+    two = new Two({
+        type: Two.Types.canvas,
+        width: 800,
+        height: 600
+    }).appendTo(document.getElementById('twoContainer'));
+    
+    // Create the circle
+    circle = two.makeCircle(400, 300, 50);
+    circle.fill = '#FF8000';
+    circle.stroke = 'orangered'; // Accepts all valid CSS color
+    circle.linewidth = 5;
+
+    // Start the animation
+    two.play();
+
     // Initialize Blockly workspace
     workspace = Blockly.inject('blocklyDiv', {
         toolbox: document.getElementById('toolbox'),
@@ -115,7 +136,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
     console.log('Available Generators:', Object.keys(Blockly.JavaScript));
 
     // Initialize game
-    game = new Game();
+    // const circle = window.circle; // Access the circle created in game.html
+
+    if (!circle) {
+        console.error('Circle is not defined. Make sure it is created in game.html.');
+        return;
+    }
+
+    // Initialize game with the existing circle
+    game = new Game(circle); // Pass the existing 
+
+    
 
     // Add workspace change listener for auto-save
     workspace.addChangeListener(() => {

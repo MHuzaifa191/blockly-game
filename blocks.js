@@ -54,7 +54,7 @@ const move_forward = {
 };
 
 javascript.javascriptGenerator.forBlock['move_forward'] = function(block) {
-    const code = `await moveForward(50);\n`;
+    const code = `await game.moveForward(50);\n`;
     return code;
 };
 
