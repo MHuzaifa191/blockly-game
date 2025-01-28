@@ -115,6 +115,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     circle.stroke = 'orangered'; // Accepts all valid CSS color
     circle.linewidth = 5;
 
+
     // Start the animation
     two.play();
 
@@ -144,7 +145,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
 
     // Initialize game with the existing circle
-    game = new Game(circle); // Pass the existing 
+    game = new Game(circle, two); // Pass the existing 
+    game.drawObstacles();
 
     
 
