@@ -61,33 +61,33 @@ This project needs to be served locally using a python web server because Two.js
 This project includes several custom Blockly blocks, each representing different actions or control flow in the game. Below is a list of the blocks added, along with the available options for each block:
 
 
-## 1. **Move in Previous Direction**
+### 1. **Move in Previous Direction**
    - **Description**: A simple move block that moves the circle in the previous default direction.
 
-## 2. **Move In Direction**
+### 2. **Move In Direction**
    - **Description**: Overwrites the previous direction to move in the provided direction for a fixed distance.
    - **Available Options**: forward, backward, upward, downward.
 
-## 3. **Loop Until Distance (For Loop)**
+### 3. **Loop Until Distance (For Loop)**
    - **Description**: Repeats an action until a specified distance is reached.
    - **Available Options**:
      - `Distance <=`: Input field to specify the target distance.
 
-## 4. **Loop Until Obstacle (While Loop)**
+### 4. **Loop Until Obstacle (While Loop)**
    - **Description**: Repeats an action while an obstacle is detected.
 
-## 5. **Change Direction**
+### 5. **Change Direction**
    - **Description**: Changes the direction of movement.
    - **Available Options**:
      - `forward`, `backward`, `upward`, `downward`: Dropdown to select the desired direction.
 
-## 6. **If Condition**
+### 6. **If Condition**
    - **Description**: Performs an action if a certain condition is met, and another action if the condition is false.
    - **Available Options**:
      - `Any Obstacle`: Detects if any obstacle is in front of the character.
      - `Square`, `Circle`, `Rectangle`: Detects specific types of obstacles.
 
-## 7. **Change Color**
+### 7. **Change Color**
    - **Description**: Changes the color of a ball or object in the game.
    - **Available Options**:
      - `Red`, `Green`, `Blue`, `Yellow`: Predefined colors to change the ball's color.
