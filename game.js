@@ -417,6 +417,7 @@ class Game {
     }
 
 
+
     // Utility method to demonstrate a generic block functionality
     performCustomAction(action) {
         console.log('Performing custom action:', action);

@@ -1,0 +1,12 @@
+#twoContainer {
+    width: 800px;
+    height: 600px;
+    min-width: 800px;
+    min-height: 500px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin: 0 auto; 
+    display: block;
+    flex-shrink: 0;
+    overflow: hidden;
+}

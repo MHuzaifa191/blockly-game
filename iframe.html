@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Two.js Canvas</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/iframe.css">
 </head>
 <body>
     <script>
@@ -38,11 +33,34 @@
             return circle;
         };
 
+        window.resetGame = function resetGame() {
+            // Reset circle position to center of the canvas
+            circle.translation.x = two.width / 2;
+            circle.translation.y = two.height / 2;
+            
+            // Reset rotation
+            circle.rotation = 0;
+            
+            // Optional: Reset color or other properties if needed
+            circle.fill = '#FF8000';
+            circle.stroke = 'orangered';
+            
+            // Notify parent window about game reset
+            window.parent.postMessage({ 
+                type: 'gameReset', 
+                x: circle.translation.x, 
+                y: circle.translation.y 
+            }, '*');
+            
+            return circle;
+        }
+
         // Notify the parent that Two.js is ready
         window.parent.postMessage({ type: 'ready' }, '*');
 
         window.getTwoInstance = getTwoInstance;
         window.getCircle = getCircle;
+        window.resetGame = resetGame;
         
     </script>
 </body>

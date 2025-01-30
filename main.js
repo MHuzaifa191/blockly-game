@@ -99,6 +99,18 @@ function runCode() {
     }
 }
 
+let iframe;
+let iframeWindow;
+
+function reset_game() {
+    // Reload the iframe to reset everything
+    iframe.contentWindow.location.reload();
+    
+    // Optional: Reinitialize Blockly workspace if needed
+    if (workspace) {
+        workspace.clear();
+    }
+}
 
 // Listen for the iframe to be ready
 window.addEventListener('message', (event) => {
@@ -106,8 +118,8 @@ window.addEventListener('message', (event) => {
         console.log("Two.js is ready in the iframe!");
         
         // Get the iframe element
-        const iframe = document.getElementById('twoContainer');
-        const iframeWindow = iframe.contentWindow;
+        iframe = document.getElementById('twoContainer');
+        iframeWindow = iframe.contentWindow;
 
         // Initialize Two.js and circle after receiving the ready message
         two = iframeWindow.getTwoInstance();
