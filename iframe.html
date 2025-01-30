@@ -40,6 +40,10 @@
 
         // Notify the parent that Two.js is ready
         window.parent.postMessage({ type: 'ready' }, '*');
+
+        window.getTwoInstance = getTwoInstance;
+        window.getCircle = getCircle;
+        
     </script>
 </body>
 </html>

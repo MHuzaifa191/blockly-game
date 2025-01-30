@@ -99,25 +99,42 @@ function runCode() {
     }
 }
 
+
+// Listen for the iframe to be ready
+window.addEventListener('message', (event) => {
+    if (event.data.type === 'ready') {
+        console.log("Two.js is ready in the iframe!");
+        
+        // Get the iframe element
+        const iframe = document.getElementById('twoContainer');
+        const iframeWindow = iframe.contentWindow;
+
+        // Initialize Two.js and circle after receiving the ready message
+        two = iframeWindow.getTwoInstance();
+        circle = iframeWindow.getCircle();
+
+        two.play();
+
+        
+        // Additional initialization or setup can be done here
+        console.log("Two.js and circle initialized from iframe");
+
+
+        if (!circle) {
+            console.error('Circle is not defined. Make sure it is created in game.html.');
+            return;
+        }
+
+
+        // Initialize game with the existing circle
+        game = new Game(circle, two); // Pass the existing 
+        game.drawObstacles();
+
+    }
+});
+
 // Wait for the DOM to fully load
 window.addEventListener('DOMContentLoaded', (event) => {
-
-    // Initialize Two.js
-    two = new Two({
-        type: Two.Types.canvas,
-        width: 800,
-        height: 600
-    }).appendTo(document.getElementById('twoContainer'));
-    
-    // Create the circle
-    circle = two.makeCircle(400, 300, 50);
-    circle.fill = '#FF8000';
-    circle.stroke = 'orangered'; // Accepts all valid CSS color
-    circle.linewidth = 5;
-
-
-    // Start the animation
-    two.play();
 
     // Initialize Blockly workspace
     workspace = Blockly.inject('blocklyDiv', {
@@ -136,17 +153,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
     console.log('Available Blocks:', Object.keys(Blockly.Blocks));
     console.log('Available Generators:', Object.keys(Blockly.JavaScript));
 
-    // Initialize game
-    // const circle = window.circle; // Access the circle created in game.html
 
-    if (!circle) {
-        console.error('Circle is not defined. Make sure it is created in game.html.');
-        return;
-    }
 
-    // Initialize game with the existing circle
-    game = new Game(circle, two); // Pass the existing 
-    game.drawObstacles();
 
     
 

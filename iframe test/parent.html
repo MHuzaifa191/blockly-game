@@ -3,32 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Window - Receiver</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+    <title>Parent Window</title>
 </head>
 <body>
 
     <h2>Main Window</h2>
-    <iframe src="iframe.html" width="520" height="350"></iframe>
+    <iframe id="twoFrame" src="iframe.html" width="820" height="620"></iframe>
+
+    <button onclick="changeCircleColor()">Change Circle Color</button>
 
     <script>
-        // Initialize Two.js
-        const two = new Two({ width: 500, height: 300 }).appendTo(document.body);
+        const iframe = document.getElementById('twoFrame');
 
-        // Function to receive messages from the iframe
+        // Listen for the iframe to be ready
         window.addEventListener('message', (event) => {
-            const data = event.data;
-
-            if (data.type === 'rectangle') {
-                console.log("Received shape data:", data);
-
-                // Recreate the rectangle
-                const newRect = two.makeRectangle(data.x, data.y, data.width, data.height);
-                newRect.fill = data.fill;
-
-                two.update();
+            if (event.data.type === 'ready') {
+                console.log("Two.js is ready in the iframe!");
             }
         });
+
+        // Function to change the circle's color from the parent window
+        function changeCircleColor() {
+            const iframeWindow = iframe.contentWindow;
+            if (iframeWindow.getCircle) {
+                const circle = iframeWindow.getCircle();
+                circle.fill = '#0080FF'; // Change color to blue
+                iframeWindow.getTwoInstance().update(); // Update the canvas
+            }
+        }
+
+        changeCircleColor();
     </script>
 
 </body>
