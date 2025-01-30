@@ -3,7 +3,7 @@ if (typeof Blockly === 'undefined') {
     throw new Error('Blockly has not been loaded!');
 }
 
-let defaultDirection = 'forward'; // To define the default direction for the character
+let defaultDirection = 'Forward'; // To define the default direction for the character
 
 // Enable async/await support
 Blockly.JavaScript.STATEMENT_PREFIX = '';
@@ -59,8 +59,8 @@ const move_in_direction = {
 };
 
 javascript.javascriptGenerator.forBlock['move_in_direction'] = function(block) {
-    direction = defaultDirection.toLowerCase();
-    const code = `await game.move_${direction}(50);\n`;
+    const newDirection = defaultDirection;
+    const code = `await game.move_${defaultDirection}(50);\n`;
     return code;
 };
 
@@ -185,7 +185,7 @@ Blockly.common.defineBlocks({move_downward: move_downward});
 const loop_until_distance = {
     init: function() {
         this.appendDummyInput()
-            .appendField('Keep Moving Until');
+            .appendField('LOOP');
         
 
         this.appendDummyInput()
@@ -224,7 +224,7 @@ Blockly.common.defineBlocks({loop_until_distance: loop_until_distance});
 const loop_until_obstacle = {
     init: function() {
         this.appendDummyInput()
-            .appendField('Keep Moving Until');
+            .appendField('Keep moving while');
 
         // Dropdown for obstacle selection
         this.appendDummyInput()
@@ -264,10 +264,10 @@ const change_direction = {
         this.appendDummyInput()
             .appendField('Change direction to')
             .appendField(new Blockly.FieldDropdown([
-                ["Forward", "Forward"],
-                ["Backward", "Backward"],
-                ["Upward", "Upward"],
-                ["Downward", "Downward"]
+                ["forward", "forward"],
+                ["backward", "backward"],
+                ["upward", "upward"],
+                ["downward", "downward"]
             ]), "DIRECTION");
 
         this.setPreviousStatement(true, null);
@@ -286,11 +286,11 @@ Blockly.JavaScript['change_direction'] = function(block) {
 
 javascript.javascriptGenerator.forBlock['change_direction'] = function(block) {
     const direction = block.getFieldValue('DIRECTION'); // Get the selected direction
-    defaultDirection = direction.toLowerCase(); 
+    defaultDirection = direction; 
 
     
-    return "\n";
-    // return `await game.move_${defaultDirection}(5);\n`;
+    
+    return `await game.move_${direction}(5);\n`;
 };
 
 

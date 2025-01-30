@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iframe - Sender</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+</head>
+<body>
+
+    <script>
+        // Initialize Two.js
+        const two = new Two({ width: 500, height: 300 }).appendTo(document.body);
+
+        // Create a shape
+        const rect = two.makeRectangle(250, 150, 100, 100);
+        rect.fill = 'blue';
+        two.update();
+
+        // Function to send the shape data
+        function sendShapeData() {
+            const rectData = {
+                type: 'rectangle',
+                x: rect.translation.x,
+                y: rect.translation.y,
+                width: rect.width,
+                height: rect.height,
+                fill: rect.fill
+            };
+
+            // Send data to parent window
+            window.parent.postMessage(rectData, '*');
+        }
+
+        // Send data after 3 seconds (for demo purposes)
+        setTimeout(sendShapeData, 3000);
+    </script>
+
+</body>
+</html>

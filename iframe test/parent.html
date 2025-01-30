@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Window - Receiver</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+</head>
+<body>
+
+    <h2>Main Window</h2>
+    <iframe src="iframe.html" width="520" height="350"></iframe>
+
+    <script>
+        // Initialize Two.js
+        const two = new Two({ width: 500, height: 300 }).appendTo(document.body);
+
+        // Function to receive messages from the iframe
+        window.addEventListener('message', (event) => {
+            const data = event.data;
+
+            if (data.type === 'rectangle') {
+                console.log("Received shape data:", data);
+
+                // Recreate the rectangle
+                const newRect = two.makeRectangle(data.x, data.y, data.width, data.height);
+                newRect.fill = data.fill;
+
+                two.update();
+            }
+        });
+    </script>
+
+</body>
+</html>

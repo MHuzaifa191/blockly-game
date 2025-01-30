@@ -48,7 +48,7 @@ class Game {
         const circleX = circle.translation.x; // Circle's current x position
         const circleY = circle.translation.y; // Circle's current y position
 
-        const buffer = 2;
+        const buffer = 10;
 
         for (const obstacle of obstacles) {
             if (obstacle.type === 'rectangle') {
@@ -62,15 +62,13 @@ class Game {
                     return true; // Collision detected
                 }
             } else if (obstacle.type === 'triangle') {
-                // Triangle collision detection (simplified)
-                // You can implement a more complex triangle collision detection if needed
-                // For now, we will just check if the circle's center is within the bounding box of the triangle
-                const triangleSize = obstacle.size;
+                // Triangle collision detection - now using square-like detection
+                const halfSize = obstacle.size / 2;
                 if (
-                    circleX > obstacle.x - triangleSize &&
-                    circleX < obstacle.x + triangleSize &&
-                    circleY > obstacle.y - triangleSize &&
-                    circleY < obstacle.y + triangleSize
+                    circleX + circleRadius + buffer > obstacle.x - halfSize &&
+                    circleX - circleRadius - buffer < obstacle.x + halfSize &&
+                    circleY + circleRadius + buffer > obstacle.y - halfSize &&
+                    circleY - circleRadius - buffer < obstacle.y + halfSize
                 ) {
                     return true; // Collision detected
                 }
@@ -418,14 +416,6 @@ class Game {
         this.two.update(); // Update the Two.js instance to reflect the change
     }
 
-    reset() {
-        // Reset character position and rotation
-        this.character.position.x = this.two.width / 2;
-        this.character.position.y = this.two.height / 2;
-        this.character.rotation = 0;
-        this.currentAngle = 0;
-        this.isAnimating = false;
-    }
 
     // Utility method to demonstrate a generic block functionality
     performCustomAction(action) {

@@ -1,0 +1,37 @@
+<style>
+    /* Existing styles... */
+
+    header {
+        background-image: url('path/to/your/header-background-image.jpg'); /* Replace with your header image path */
+        background-size: cover; /* Cover the entire header */
+        background-position: center; /* Center the header image */
+        color: white;
+        padding: 1rem;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow effect for text */
+        position: fixed; /* Fix the header at the top */
+        width: 100%; /* Full width */
+        transition: height 0.3s, padding 0.3s; /* Smooth transition for height and padding */
+        z-index: 1; /* Ensure header is above the background */
+    }
+
+    /* Collapsed header styles */
+    .collapsed {
+        height: 50px; /* Set the height when collapsed */
+        padding: 0.5rem; /* Adjust padding when collapsed */
+        overflow: hidden; /* Hide overflow */
+    }
+
+    /* Styles for the Blockly and Two.js containers */
+    #blocklyDiv, #twoContainer {
+        background-color: white; /* Set background to white */
+        border-radius: 8px; /* Optional: Add rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+        margin: 20px; /* Optional: Add some margin */
+        padding: 10px; /* Optional: Add some padding */
+        z-index: 2; /* Ensure these are above the background */
+        margin-top: 80px; /* Add margin to prevent overlap with fixed header */
+    }
+
+    /* Other styles... */
+</style>
