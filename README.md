@@ -2,7 +2,7 @@
 
 This project teaches kids coding concepts through a visual programming environment. It integrates google's blockly for block combinations and a two.js canvas to display the character (a circle).
 
-# Deployment
+## Deployment
 
 This application is deployed on [Vercel](https://blockly-game-wheat.vercel.app/).
 
