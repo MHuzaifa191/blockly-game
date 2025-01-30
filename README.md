@@ -10,6 +10,22 @@ This application is deployed on [Vercel](https://blockly-game-wheat.vercel.app/)
 
 The game provides a simple 2D environment where kids can control an object (e.g., a circle or a robot) using Blockly's drag-and-drop code blocks.  This project demonstrates how to integrate Blockly and Two.js to create an interactive learning experience.
 
+## Blockly and Two.js Interaction
+
+The interaction between Blockly and Two.js is a sophisticated process that enables visual programming:
+
+1. **Block Creation and Code Generation**:
+   - Users drag and drop visual code blocks in the Blockly workspace
+   - Blockly converts these blocks into executable JavaScript code
+   - Custom block generators translate block logic into game commands
+
+2. **Code Execution Mechanism**:
+   - When the "Run" button is pressed, the `runCode()` function is triggered
+   - Blockly generates JavaScript code from the workspace
+   - The code is wrapped in an async function and executed using `eval()`
+   - Wrapper functions like `move_forward()` translate block commands into Two.js game actions
+
+
 ## A Simple Winning Combination
 
 ![Alt Text](./assets/winning_combination.gif)
