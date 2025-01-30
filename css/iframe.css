@@ -1,8 +1,8 @@
-#twoContainer {
+/* #twoContainer {
     width: 800px;
     height: 600px;
     min-width: 800px;
-    min-height: 500px;
+    min-height: 600px;
     border: 2px solid #ccc;
     border-radius: 8px;
     margin: 0 auto; 
@@ -10,4 +10,4 @@
     flex-shrink: 0;
     overflow: hidden;
     background-color: white;
-}
+} */

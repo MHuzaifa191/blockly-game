@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code & Play - Learn Programming with Blocks!</title>
+
+    <!-- Blockly Dependencies -->
+    <script src="https://unpkg.com/blockly/blockly_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/msg/en.js"></script>
+    
+    <!-- Two.js Dependency -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="js/blocks.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/game.js" defer></script>    
+
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/iframe.css">
+
+    <style>
+        body {
+            background-color: white;
+        }
+    </style>
+    
+</head>
+<body>
+    <header>
+        <h1 class="Heading">Code & Play</h1>
+        <p>Learn programming concepts through fun visual blocks!</p>
+    </header>
+
+    <div class="container">
+        <!-- Blockly Workspace -->
+        <div id="blocklyDiv"></div>
+        <!-- Game Container as an iframe -->
+        <iframe src="templates/iframe.html" id="twoContainer"></iframe>
+    </div>
+
+    <div class="controls">
+        <button class="styled-button" onclick="runCode()">Run Code</button>
+        <button class="styled-button" onclick="reset_game()">Reset Game</button>
+    </div>
+
+    <!-- Blockly Toolbox Definition -->
+    <xml id="toolbox" style="display: none">
+        <category name="Movement" colour="210"> <!-- Blue -->
+            <block type="move_in_direction"></block>
+            <block type="move_forward"></block>
+            <block type="move_backward"></block>
+            <block type="move_upward"></block>
+            <block type="move_downward"></block>
+        </category>
+        <category name="Loops" colour="120"> <!-- Green -->
+            <block type="loop_until_distance"></block>
+            <block type="loop_until_obstacle"></block>
+        </category>
+        <category name="Conditions" colour="60"> <!-- Yellow -->
+            <block type="if_condition"></block>
+        </category>
+        <category name="Choices" colour="330"> <!-- Purple -->
+            <block type="change_direction"></block>
+            <block type="change_circle_color"></block>
+        </category>
+        <!-- <category name="Custom" colour="0"> 
+            <block type="my_block"></block>
+        </category> -->
+    </xml>
+    
+    <script>
+        
+    </script>
+    
+
+</body>
+</html>
