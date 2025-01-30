@@ -1,4 +1,3 @@
-
 class Game {
     constructor(circle, two) {
         this.circle = circle; // Use the existing circle passed in
@@ -10,6 +9,10 @@ class Game {
             { type: 'rectangle', x: 200, y: 150, width: 50, height: 100 }, // Example rectangle
             { type: 'triangle', x: 600, y: 300, size: 50 }, // Example triangle
             { type: 'square', x: 300, y: 400, size: 70 },
+            { type: 'rectangle', x: 100, y: 350, width: 80, height: 60, color: 'red' }, // Narrow rectangle
+            { type: 'triangle', x: 450, y: 500, size: 70, color: 'purple' }, // Larger triangle
+            { type: 'square', x: 550, y: 100, size: 90, color: 'blue' }, // Large square
+            { type: 'winning-point', x: 700, y: 200, size: 100, color: 'gold' }, // New winning point obstacle
             // Add more obstacles as needed
         ];
     }
@@ -43,49 +46,54 @@ class Game {
 
     // Function to check for collisions between the circle and obstacles
     checkCollision(circle, obstacles) {
-        const circleRadius = circle.radius; // Assuming you have a radius property
-        console.log(circleRadius);
-        const circleX = circle.translation.x; // Circle's current x position
-        const circleY = circle.translation.y; // Circle's current y position
+        const circleRadius = circle.radius;
+        const circleX = circle.translation.x;
+        const circleY = circle.translation.y;
 
-        const buffer = 10;
+        const buffer = 0;
 
-        for (const obstacle of obstacles) {
+        for (let obstacle of obstacles) {
+            let collision = false;
+
+            // Existing collision detection logic for different obstacle types
             if (obstacle.type === 'rectangle') {
-                // Rectangle collision detection
-                if (
-                    circleX + circleRadius > obstacle.x - obstacle.width / 2 &&
-                    circleX - circleRadius < obstacle.x + obstacle.width / 2 &&
-                    circleY + circleRadius > obstacle.y - obstacle.height / 2 &&
-                    circleY - circleRadius < obstacle.y + obstacle.height / 2
-                ) {
-                    return true; // Collision detected
-                }
+                collision = (
+                    circleX + circleRadius > obstacle.x &&
+                    circleX - circleRadius < obstacle.x + obstacle.width &&
+                    circleY + circleRadius > obstacle.y &&
+                    circleY - circleRadius < obstacle.y + obstacle.height
+                );
             } else if (obstacle.type === 'triangle') {
-                // Triangle collision detection - now using square-like detection
-                const halfSize = obstacle.size / 2;
-                if (
-                    circleX + circleRadius + buffer > obstacle.x - halfSize &&
-                    circleX - circleRadius - buffer < obstacle.x + halfSize &&
-                    circleY + circleRadius + buffer > obstacle.y - halfSize &&
-                    circleY - circleRadius - buffer < obstacle.y + halfSize
-                ) {
-                    return true; // Collision detected
-                }
+                // Triangle collision logic (simplified)
+                const dx = Math.abs(circleX - obstacle.x);
+                const dy = Math.abs(circleY - obstacle.y);
+                collision = (dx * dx + dy * dy) < (obstacle.size + circleRadius) * (obstacle.size + circleRadius);
             } else if (obstacle.type === 'square') {
-                // Square collision detection
-                const halfSize = obstacle.size / 2;
+                const tolerance = 20;
+                collision = (
+                    circleX + circleRadius - tolerance > obstacle.x &&
+                    circleX - circleRadius + tolerance < obstacle.x + obstacle.size &&
+                    circleY + circleRadius - tolerance > obstacle.y &&
+                    circleY - circleRadius + tolerance < obstacle.y + obstacle.size
+                );
+            } else if (obstacle.type === 'winning-point') {
+                // Precise winning point collision
+                const tolerance = 5; // Small tolerance for reaching the point
                 if (
-                    circleX + circleRadius + buffer > obstacle.x - halfSize &&
-                    circleX - circleRadius - buffer < obstacle.x + halfSize &&
-                    circleY + circleRadius + buffer > obstacle.y - halfSize &&
-                    circleY - circleRadius - buffer < obstacle.y + halfSize
+                    Math.abs(circleX - obstacle.x) <= tolerance &&
+                    Math.abs(circleY - obstacle.y) <= tolerance
                 ) {
-                    return true; // Collision detected
+                    // Display win message
+                    this.youWin();
+                    return true; // Stop further collision checks
                 }
             }
+
+            if (collision) {
+                return true;
+            }
         }
-        return false; // No collision
+        return false;
     }
 
     drawObstacles() {
@@ -97,12 +105,17 @@ class Game {
                 shape = this.two.makePolygon(obstacle.x, obstacle.y, obstacle.size, 3); // 3 for triangle
             } else if (obstacle.type === 'square') {
                 shape = this.two.makeRectangle(obstacle.x, obstacle.y, obstacle.size, obstacle.size); // Square
+            } else if (obstacle.type === 'winning-point') {
+                shape = this.two.makeCircle(obstacle.x, obstacle.y, obstacle.size / 2);
+                shape.fill = obstacle.color;
             }
 
             // Set properties for the shape
-            shape.fill = 'green'; // Color for obstacles
-            shape.stroke = 'darkgreen';
-            shape.linewidth = 2;
+            if (obstacle.type !== 'winning-point') {
+                shape.fill = 'green'; // Color for obstacles
+                shape.stroke = 'darkgreen';
+                shape.linewidth = 2;
+            }
 
             // Add the shape to the Two.js instance
             this.two.add(shape);
@@ -328,16 +341,16 @@ class Game {
         direction = direction.toLowerCase();
         switch (direction) {
             case 'forward':
-                await this.moveForward(distance);
+                await this.move_forward(distance);
                 break;
             case 'backward':
-                await this.moveBackward(distance);
+                await this.move_backward(distance);
                 break;
             case 'upward':
-                await this.moveUpward(distance);
+                await this.move_upward(distance);
                 break;
             case 'downward':
-                await this.moveDownward(distance);
+                await this.move_downward(distance);
                 break;
             default:
                 console.warn('Unknown direction:', direction);
@@ -345,9 +358,7 @@ class Game {
         }
     }
 
-    async moveUntilCollision(direction) {
-        const stepDistance = 5; // Define how much to move in each step
-    
+    async moveUntilCollision(direction, stepDistance = 10) {
         while (true) {
             // Create a future position based on the current direction
             const futureCircle = { 
@@ -380,6 +391,15 @@ class Game {
                     return; // Exit if the direction is unknown
             }
     
+            // Check if ball is out of grid boundaries
+            if (futureCircle.translation.x < 0 || 
+                futureCircle.translation.x > this.two.width || 
+                futureCircle.translation.y < 0 || 
+                futureCircle.translation.y > this.two.height) {
+                this.gameOver();
+                break;
+            }
+
             // Check for collision with obstacles
             if (this.checkCollision(futureCircle, this.obstacles)) {
                 console.log('Collision detected! Stopping movement.');
@@ -411,11 +431,45 @@ class Game {
         }
     }
 
+    gameOver() {
+        // Create a game over text
+        const gameOverText = this.two.makeText('Game Over', this.two.width / 2, this.two.height / 2);
+        gameOverText.fill = 'red';
+        gameOverText.size = 48; // Larger font size
+        gameOverText.alignment = 'center';
+        
+        // Optional: Stop any ongoing animations or interactions
+        this.isAnimating = false;
+        
+        // Render the game over text
+        this.two.update();
+        
+        // Optional: Trigger any additional game over logic
+        console.log('Game Over: Ball went out of grid boundaries');
+    }
+
     async changeBallColor(color) {
         this.circle.fill = color; // Update the fill color of the circle
         this.two.update(); // Update the Two.js instance to reflect the change
     }
 
+    youWin() {
+        // Create a "You Win" text
+        const youWinText = this.two.makeText('You Win!', this.two.width / 2, this.two.height / 2);
+        youWinText.fill = 'green'; // Green for success
+        youWinText.size = 48; // Large font size
+        youWinText.alignment = 'center';
+    
+        // Optional: Stop animations or interactions
+        this.isAnimating = false;
+    
+        // Render the text on the canvas
+        this.two.update();
+    
+        // Optional: Additional winning logic
+        console.log('You Win: Successfully completed the game!');
+    }
+    
 
 
     // Utility method to demonstrate a generic block functionality

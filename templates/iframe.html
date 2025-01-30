@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Two.js Canvas</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
-    <link rel="stylesheet" href="./css/iframe.css">
+    <link rel="stylesheet" href="../css/iframe.css">
 </head>
 <body>
     <script>
@@ -17,10 +17,11 @@
         }).appendTo(document.body);
 
         // Create the circle
-        const circle = two.makeCircle(400, 300, 50);
+        const circle = two.makeCircle(50, 50, 30); 
         circle.fill = '#FF8000';
         circle.stroke = 'orangered';
         circle.linewidth = 5;
+
 
         two.update();
 

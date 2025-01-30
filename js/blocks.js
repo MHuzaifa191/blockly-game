@@ -3,7 +3,7 @@ if (typeof Blockly === 'undefined') {
     throw new Error('Blockly has not been loaded!');
 }
 
-let defaultDirection = 'Forward'; // To define the default direction for the character
+let defaultDirection = 'forward'; // To define the default direction for the character
 
 // Enable async/await support
 Blockly.JavaScript.STATEMENT_PREFIX = '';

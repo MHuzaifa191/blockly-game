@@ -9,4 +9,5 @@
     display: block;
     flex-shrink: 0;
     overflow: hidden;
+    background-color: white;
 }
