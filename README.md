@@ -1,6 +1,6 @@
 # Interactive Coding Game with Blockly and Two.js
 
-This project teaches kids coding concepts through a visual programming environment. It integrates google's blockly for block combinations and a two.js canvas to display the character (a circle).
+This project teaches kids coding concepts through a visual programming environment. It integrates google's blockly for block combinations and a two.js canvas to display the character.
 
 ## Deployment
 
